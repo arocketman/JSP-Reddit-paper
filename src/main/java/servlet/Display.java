@@ -54,6 +54,7 @@ public class Display extends HttpServlet {
 		if(submissionsSubreddit.isEmpty()){
 			//TODO: Make this better
 			request.getRequestDispatcher("index.jsp").forward(request, response);
+			return;
 		}
 		//Filtering non-thumbnail results
 		for(int i = 0; i < RESULTS_NUMBER; i++){
