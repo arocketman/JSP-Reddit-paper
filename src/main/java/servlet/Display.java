@@ -42,7 +42,7 @@ public class Display extends HttpServlet {
 		//Get the parameter we need. 
 		String topic = request.getParameter("topic");
 		if(topic == null) 
-			request.getRequestDispatcher("index.jsp").forward(request, response);;
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		//Search
 		RestClient restClient = new HttpRestClient();
@@ -51,6 +51,10 @@ public class Display extends HttpServlet {
 		HashSet<Submission> toRemove = new HashSet<Submission>();
 		List<Submission> submissionsSubreddit = subms.search(topic + " self:no nsfw:no", QuerySyntax.LUCENE, SearchSort.HOT, TimeSpan.MONTH, -1, RESULTS_NUMBER, null, null, true); 
 		
+		if(submissionsSubreddit.isEmpty()){
+			//TODO: Make this better
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 		//Filtering non-thumbnail results
 		for(int i = 0; i < RESULTS_NUMBER; i++){
 			String thumb = submissionsSubreddit.get(i).getThumbnail();
