@@ -40,6 +40,16 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.jreddit</groupId>
+      <artifactId>jreddit</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+  </dependency>
   </dependencies>
   <build>
     <finalName>embeddedTomcatSample</finalName>
