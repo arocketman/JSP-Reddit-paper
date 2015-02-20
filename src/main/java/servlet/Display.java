@@ -41,8 +41,10 @@ public class Display extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Get the parameter we need. 
 		String topic = request.getParameter("topic");
-		if(topic == null) 
+		if(topic == null) {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
+			return;
+		}
 		
 		//Search
 		RestClient restClient = new HttpRestClient();
@@ -57,7 +59,7 @@ public class Display extends HttpServlet {
 			return;
 		}
 		//Filtering non-thumbnail results
-		for(int i = 0; i < RESULTS_NUMBER; i++){
+		for(int i = 0; i < submissionsSubreddit.size(); i++){
 			String thumb = submissionsSubreddit.get(i).getThumbnail();
 			if(thumb.isEmpty() || !hasImageExtension(thumb))
 				toRemove.add(submissionsSubreddit.get(i));
