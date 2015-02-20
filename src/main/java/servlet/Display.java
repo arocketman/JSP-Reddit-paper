@@ -54,7 +54,7 @@ public class Display extends HttpServlet {
 		List<Submission> submissionsSubreddit = subms.search(topic + " self:no nsfw:no", QuerySyntax.LUCENE, SearchSort.HOT, TimeSpan.MONTH, -1, RESULTS_NUMBER, null, null, true); 
 		
 		if(submissionsSubreddit.isEmpty()){
-			//TODO: Make this better
+			request.setAttribute("errMessage", "No results were returned from your search");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 			return;
 		}
