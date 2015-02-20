@@ -3,7 +3,7 @@
 <c:import url="header.jsp"></c:import>
 
 <form method="get" action="Display">
-<input id="topic" style="margin: 0 auto" value="${requestScope.topic}" type="text" name="topic" placeholder="What do you want to read about?" />
+<input onkeyup="showUser(this.value)" id="topic" style="margin: 0 auto" value="${requestScope.topic}" type="text" name="topic" placeholder="What do you want to read about?" />
 <div id="selectables">
 <label>
 Timespan:
@@ -29,22 +29,12 @@ nsfw:
 <%-- Redirect back to index if no parameters are in --%>
 
 <div id="wrapper">
-	<div id="columns">
-		<c:forEach items="${requestScope.submissions}" var="submission">
-			<a href="http://reddit.com/${submission.permalink}"><div class="pin">
-				<img src="${submission.thumbnail}"/>
-				<jsp:useBean id="myDate" class="java.util.Date"/>  
-				<c:set target="${myDate}" property="time" value="${submission.createdUTC * 1000}"/>    
-				<h6>from : ${submission.subreddit} - <fmt:formatDate value="${myDate}"/></h6>
-				<h3>${submission.title}</h3>
-				<h4>score: ${submission.score}</h4>
-			</div></a>
-		</c:forEach>
-	</div>
+	<c:import url="results.jsp"></c:import>
 </div>
+
 <c:import url="footer.jsp"></c:import>
 
-        <script>
+<script>
             function showUser(str){
             	topic = document.getElementById("topic").value;
             	nsfw = document.getElementById("nsfw").value;
@@ -62,11 +52,11 @@ nsfw:
                 }
                 xmlhttp.onreadystatechange=function(){
                     if (xmlhttp.readyState==4 && xmlhttp.status==200){ 
-                    	document.getElementsByTagName("body")[0].innerHTML=xmlhttp.responseText;
+                    	document.getElementById("wrapper").innerHTML=xmlhttp.responseText;
                     }
                 }
                 //send request
-                xmlhttp.open("GET","Display?topic="+topic+"&eta="+eta+"&nsfw="+nsfw,true);
+                xmlhttp.open("GET","Display?topic="+topic+"&eta="+eta+"&nsfw="+nsfw+"&ajax=true",true);
                 xmlhttp.send();
             }
-        </script>
+</script>

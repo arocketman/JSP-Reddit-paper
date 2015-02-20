@@ -25,7 +25,7 @@ import com.github.jreddit.utils.restclient.RestClient;
 @WebServlet("/Display")
 public class Display extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int RESULTS_NUMBER = 50;
+	private static final int RESULTS_NUMBER = 100;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -66,7 +66,12 @@ public class Display extends HttpServlet {
 		request.setAttribute("etaparam", etaParam);
 		request.setAttribute("topic", topic);
 		request.setAttribute("nsfwparam", nsfwParam);
-		request.getRequestDispatcher("display.jsp").forward(request, response);
+		
+		String isAjaxRequest = request.getParameter("ajax");
+		if(isAjaxRequest != null)
+			request.getRequestDispatcher("results.jsp").forward(request, response);
+		else
+			request.getRequestDispatcher("display.jsp").forward(request, response);
 	}
 	
 	/**
@@ -129,7 +134,6 @@ public class Display extends HttpServlet {
 			Submission submission = submissionsSubreddit.get(i);
 			String thumb = submission.getThumbnail();
 			if(thumb.isEmpty() || !hasImageExtension(thumb)){
-				
 				if(submission.isNSFW())
 					submission.setThumbnail("http://i.imgur.com/UHzw6.png");
 				else
