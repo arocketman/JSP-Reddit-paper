@@ -2,12 +2,17 @@ body{
 	background-color: rgb(46,83,150);
 }
 
-h1{
-	font-size: 4em;
-	display:block;
-	text-align: center;
-	padding: 10px;
+h1 { 
+	color: #312732; 
+	font-family: 'Raleway',sans-serif; 
+	font-size: 62px; 
+	font-weight: 800; 
+	line-height: 72px; 
+	margin: 0 0 24px; 
+	text-align: center; 
+	display:block
 }
+
 
 input {
 	display:block;
@@ -120,7 +125,7 @@ label:before {
 }
 
 #wrapper {
-	width: 85%;
+	width: 78%;
 	min-width: 800px;
 	margin: 20px auto;
 }
