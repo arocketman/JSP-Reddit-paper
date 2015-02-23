@@ -29,7 +29,8 @@ nsfw:
 <%-- Redirect back to index if no parameters are in --%>
 
 <div id="wrapper">
-	<c:import url="results.jsp"></c:import>
+	<c:set var="submissions" value="${requestScope.submissions}" scope="request" />
+	<c:import url="results.jsp"></c:import>	
 </div>
 
 <c:import url="footer.jsp"></c:import>

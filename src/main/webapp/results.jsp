@@ -4,7 +4,7 @@
 
 <div id="wrapper">
 	<div id="columns">
-		<c:forEach items="${requestScope.submissions}" var="submission">
+		<c:forEach items="${submissions}" var="submission">
 			<a <c:if test="${fn:contains(submission.url,'youtu')}">class="test-popup-link"</c:if><c:if test="${fn:endsWith(submission.url, '.jpg') or fn:endsWith(submission.url, '.png') or fn:endsWith(submission.url, '.gif')}">class="test-popup-image"</c:if> href="${submission.url}">
 			<div class="pin">
 				<img src="${submission.thumbnail}"/>

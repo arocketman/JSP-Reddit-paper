@@ -11,21 +11,9 @@
 </form>
 
 <div id="wrapper">
-	<div id="columns">
 	<jsp:useBean id="homeBean" class="main.java.webapp.HomeBean"></jsp:useBean>
-		<c:forEach items="${homeBean.submissions}" var="submission">
-			<a href="http://reddit.com/${submission.permalink}">
-			<div class="pin">
-				<img src="${submission.thumbnail}"/>
-				<jsp:useBean id="myDate" class="java.util.Date"/>  
-				<c:set target="${myDate}" property="time" value="${submission.createdUTC * 1000}"/>    
-				<h6>from : ${submission.subreddit} - <fmt:formatDate value="${myDate}"/></h6>
-				<h3>${submission.title}</h3>
-				<h4>score: ${submission.score}</h4>
-			</div>
-			</a>
-		</c:forEach>
-	</div>
+	<c:set var="submissions" value="${homeBean.submissions}" scope="request" />
+	<c:import url="results.jsp"></c:import>	
 </div>
 
 <c:import url="footer.jsp"></c:import>
