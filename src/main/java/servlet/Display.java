@@ -19,6 +19,7 @@ import com.github.jreddit.retrieval.params.TimeSpan;
 public class Display extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int RESULTS_NUMBER = 100;
+	private Submission lastSub;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,10 +41,12 @@ public class Display extends HttpServlet {
 		
 		String etaParam = request.getParameter("eta");
 		String nsfwParam = request.getParameter("nsfw");
+		String afterParam = request.getParameter("after");
 		boolean nsfwAllowed = processNswfParam(nsfwParam);
 		TimeSpan eta = processEtaParam(etaParam);
+		Submission after = processAfterParam(afterParam);
 		
-		List<Submission> submissions = Fetcher.doSearch(topic,nsfwAllowed,eta,RESULTS_NUMBER);
+		List<Submission> submissions = Fetcher.doSearch(topic,nsfwAllowed,eta,RESULTS_NUMBER,after);
 		
 		/* Checking if the given query returned empty */
 		if(submissions.isEmpty()){
@@ -53,6 +56,7 @@ public class Display extends HttpServlet {
 		}
 		
 		Fetcher.filterSubmissions(submissions);
+		lastSub = Fetcher.getLastSub(submissions);
 		
 		request.setAttribute("submissions", submissions);
 		request.setAttribute("etaparam", etaParam);
@@ -66,6 +70,14 @@ public class Display extends HttpServlet {
 			request.getRequestDispatcher("display.jsp").forward(request, response);
 	}
 	
+	private Submission processAfterParam(String afterParam) {
+		if(afterParam == null)
+			return null;
+		else{
+			return lastSub;
+		}
+	}
+
 	/**
 	 * Processes the eta param
 	 * @param etaParam

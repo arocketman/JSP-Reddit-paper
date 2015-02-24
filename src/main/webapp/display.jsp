@@ -3,7 +3,7 @@
 <c:import url="header.jsp"></c:import>
 
 <form method="get" action="Display">
-<input onkeyup="showUser(this.value)" id="topic" style="margin: 0 auto" value="${requestScope.topic}" type="text" name="topic" placeholder="What do you want to read about?" />
+<input onkeyup="loadMore()" id="topic" style="margin: 0 auto" value="${requestScope.topic}" type="text" name="topic" placeholder="What do you want to read about?" />
 <div id="selectables">
 <label>
 Timespan:
