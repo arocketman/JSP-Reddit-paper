@@ -7,10 +7,10 @@ https://stark-island-7239.herokuapp.com
 # Features
 
 * Display pinterest-like a searched term. Results are fetched from Reddit.
+* Ajax live update when searching.
 * Custom search queries.
-
+* Scrolling auto-update.
 
 # TODO
 
-* Scrolling auto-update.
 * Filter by subreddit.
