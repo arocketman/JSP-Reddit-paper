@@ -59,7 +59,7 @@ public class Fetcher {
 	 * @param numberOfResults the number of results
 	 * @return the submissions
 	 */
-	public static List<Submission> doSearch(String topic,boolean nsfw,TimeSpan time,int numberOfResults){
+	public static List<Submission> doSearch(String topic,boolean nsfw,TimeSpan time,int numberOfResults,Submission after){
 		/* Searching through Reddit using JReddit */
 		RestClient restClient = new HttpRestClient();
 		Submissions subms = new Submissions(restClient);
@@ -69,7 +69,12 @@ public class Fetcher {
 		else
 			topic += " nsfw:no";
 		
-		List<Submission> submissionsSubreddit = subms.search(topic, QuerySyntax.LUCENE, SearchSort.HOT, time, -1, numberOfResults, null, null, true); 
+		//TODO: Surround with try catch and handle failed search because of over-loaded reddit's server.
+		List<Submission> submissionsSubreddit = subms.search(topic, QuerySyntax.LUCENE, SearchSort.TOP, time, -1, numberOfResults, after, null, true); 
 		return submissionsSubreddit;
+	}
+
+	public static Submission getLastSub(List<Submission> submissions) {
+		return submissions.get(submissions.size() - 1);
 	}
 }
